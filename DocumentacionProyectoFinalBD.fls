@@ -50,6 +50,8 @@ INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\tex\latex\graphics-cfg\gra
 INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\tex\latex\graphics-def\pdftex.def
 INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\tex\latex\graphics-def\pdftex.def
 INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\tex\latex\graphics-def\pdftex.def
+INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\tex\latex\grffile\grffile.sty
+INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\tex\latex\grffile\grffile.sty
 INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\tex\latex\float\float.sty
 INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\tex\latex\float\float.sty
 INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\tex\latex\comment\comment.sty
@@ -93,16 +95,21 @@ INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy8.
 INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy6.tfm
 INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecrm1440.tfm
 INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecbx1440.tfm
+OUTPUT DocumentacionProyectoFinalBD.pdf
+INPUT C:\Users\Personal\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecbx1200.tfm
 INPUT .\imagenes\DER.png
 INPUT .\imagenes\DER.png
 INPUT .\imagenes\DER.png
 INPUT .\imagenes\DER.png
-OUTPUT DocumentacionProyectoFinalBD.pdf
 INPUT .\imagenes\DER.png
 INPUT .\imagenes\DER.png
-INPUT .\imagenes\DER.png
-INPUT C:\Users\Personal\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
+INPUT .\imagenes\DER Workbench.png
+INPUT .\imagenes\DER Workbench.png
+INPUT .\imagenes\DER Workbench.png
+INPUT .\imagenes\DER Workbench.png
+INPUT .\imagenes\DER Workbench.png
+INPUT .\imagenes\DER Workbench.png
 INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecbx1000.tfm
 INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ectt1000.tfm
 INPUT C:\Users\Personal\AppData\Local\Programs\MiKTeX\tex\latex\listings\lstlang1.sty
@@ -117,12 +124,12 @@ INPUT .\imagenes\Preuba 1 Poblar la BD.png
 INPUT .\imagenes\Preuba 1 Poblar la BD.png
 INPUT .\imagenes\Preuba 1 Poblar la BD.png
 INPUT .\imagenes\Preuba 1 Poblar la BD.png
-INPUT .\imagenes\Consulta1 .png
-INPUT .\imagenes\Consulta1 .png
-INPUT .\imagenes\Consulta1 .png
-INPUT .\imagenes\Consulta1 .png
-INPUT .\imagenes\Consulta1 .png
-INPUT .\imagenes\Consulta1 .png
+INPUT .\imagenes\Consulta1.png
+INPUT .\imagenes\Consulta1.png
+INPUT .\imagenes\Consulta1.png
+INPUT .\imagenes\Consulta1.png
+INPUT .\imagenes\Consulta1.png
+INPUT .\imagenes\Consulta1.png
 INPUT .\imagenes\Consulta 2.png
 INPUT .\imagenes\Consulta 2.png
 INPUT .\imagenes\Consulta 2.png
@@ -138,6 +145,57 @@ INPUT .\imagenes\Consulta3.png
 INPUT .\imagenes\Procedimiento1.png
 INPUT .\imagenes\Procedimiento1.png
 INPUT .\imagenes\Procedimiento1.png
+INPUT .\imagenes\Procedimiento1.png
+INPUT .\imagenes\Procedimiento1.png
+INPUT .\imagenes\Procedimiento1.png
+INPUT .\imagenes\Procedimiento2 ACEPTADO.png
+INPUT .\imagenes\Procedimiento2 ACEPTADO.png
+INPUT .\imagenes\Procedimiento2 ACEPTADO.png
+INPUT .\imagenes\Procedimiento2 ACEPTADO.png
+INPUT .\imagenes\Procedimiento2 ACEPTADO.png
+INPUT .\imagenes\Procedimiento2 ACEPTADO.png
+INPUT .\imagenes\Procedimiento2 ERROR.png
+INPUT .\imagenes\Procedimiento2 ERROR.png
+INPUT .\imagenes\Procedimiento2 ERROR.png
+INPUT .\imagenes\Procedimiento2 ERROR.png
+INPUT .\imagenes\Procedimiento2 ERROR.png
+INPUT .\imagenes\Procedimiento2 ERROR.png
+INPUT .\imagenes\Procedimiento3.png
+INPUT .\imagenes\Procedimiento3.png
+INPUT .\imagenes\Procedimiento3.png
+INPUT .\imagenes\Procedimiento3.png
+INPUT .\imagenes\Procedimiento3.png
+INPUT .\imagenes\Procedimiento3.png
+INPUT .\imagenes\Procedimiento4.png
+INPUT .\imagenes\Procedimiento4.png
+INPUT .\imagenes\Procedimiento4.png
+INPUT .\imagenes\Procedimiento4.png
+INPUT .\imagenes\Procedimiento4.png
+INPUT .\imagenes\Procedimiento4.png
+INPUT .\imagenes\Procedimiento5.png
+INPUT .\imagenes\Procedimiento5.png
+INPUT .\imagenes\Procedimiento5.png
+INPUT .\imagenes\Procedimiento5.png
+INPUT .\imagenes\Procedimiento5.png
+INPUT .\imagenes\Procedimiento5.png
+INPUT .\imagenes\Procedimiento6.png
+INPUT .\imagenes\Procedimiento6.png
+INPUT .\imagenes\Procedimiento6.png
+INPUT .\imagenes\Procedimiento6.png
+INPUT .\imagenes\Procedimiento6.png
+INPUT .\imagenes\Procedimiento6.png
+INPUT .\imagenes\Procedimiento7.png
+INPUT .\imagenes\Procedimiento7.png
+INPUT .\imagenes\Procedimiento7.png
+INPUT .\imagenes\Procedimiento7.png
+INPUT .\imagenes\Procedimiento7.png
+INPUT .\imagenes\Procedimiento7.png
+INPUT .\imagenes\Procedimiento8.png
+INPUT .\imagenes\Procedimiento8.png
+INPUT .\imagenes\Procedimiento8.png
+INPUT .\imagenes\Procedimiento8.png
+INPUT .\imagenes\Procedimiento8.png
+INPUT .\imagenes\Procedimiento8.png
 INPUT .\imagenes\Procedimiento1.png
 INPUT .\imagenes\Procedimiento1.png
 INPUT .\imagenes\Procedimiento1.png

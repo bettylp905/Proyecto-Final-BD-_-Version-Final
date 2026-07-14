@@ -4,6 +4,7 @@
 \usepackage[spanish]{babel}
 \usepackage{listings}
 \usepackage{graphicx}
+\usepackage{grffile}
 \graphicspath{{imagenes/}} %paqute para que pueda jalar mi imagen del diagrama
 \usepackage{float}
 \usepackage{comment}
@@ -41,7 +42,12 @@
     showtabs=false,                  
     tabsize=2
 }
-\lstset{style=mystyle}
+\lstset{style=mystyle} %para que Ltex reconozca las acentos y las ñ , y no mesalgan errores
+\lstset{
+  literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+           {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+           {ñ}{{\~n}}1 {Ñ}{{\~N}}1
+}
 
 \begin{document}
 \maketitle
@@ -50,77 +56,83 @@
 
 
 \section{Introducción}
-Se me ha solicitado diseñar y construir la base de datos completa para gestionar las operaciones de una tienda online,
+Este proyecto consiste en diseñar y construir la base de datos completa para gestionar las operaciones de una tienda online,
  asegurando que la información de productos, clientes y ventas esté organizada y protegida.
 % En "2. Descripción del problema":
 \section{Descripción del problema}
-Lo que hace este sistema es resolver el desorden en el inventario y las ventas.
- Permite registrar qué compró cada cliente, saber exactamente cuántos productos 
+Lo que hace este sistema es resolver inconsistencias en el inventario y las ventas el cual
+ permite registrar qué compró cada cliente, saber exactamente cuántos productos 
  quedan disponibles y evitar que se vendan artículos agotados.
 \section{Análisis y Diseño}
-En este apartado vamos a estructurar un poco las tablas y implementar un DER(Diagrama Entidad-Relacion) utilizando la página "Draw.io"
+En este apartado vamos a estructurar  las tablas e implementar un D-ER(Diagrama Entidad-Relacion) utilizando la página "Draw.io"
 \begin{table}[h]%para que lo ponga justo abajo de "Analisis"
-    \begin{tabular}{| c |p{9cm} |} % esto sirve para dar un salto de linea para que no se siga de largo en LaTeX
+    \begin{tabular}{| c |p{9cm} |} % esto sirve para dar un salto de linea 
         \hline
         TABLAS & ¿QUE ORGANIZA? \\
         \hline
-        Categorias                 & Organiza los productos en 5 categorias diferentes
-                                      (telefonos, laptops, accesorios, tablets y relojes inteligentes)\\ \hline
-        
-        Reseñas                    & Registra las reseñas de los productos y el ranking del mismo, el cual se evalua de
-                                      1 a 5 estrellas, siendo 1 = muy malo y 5 = excelente. Un detalle importante es que
-                                      las reseñas solo podran ser realizadas por clientes que hayan comprado un producto,
-                                      sin importar la categoria del mismo.\\ \hline
-
-        Pedidos                    & Especifica los detalles especificos del producto; como fecha de pedido y el estado
-                                      del mismo (Enviado, Pendiente y Entregado).\\ \hline
-        
-        Detalles del Pedido        & Guarda los datos especificos del pedido como por ejemplo
-                                      la cantidad (¿cuantos productos se van a enviar?) y el precio unitario del producto.\\ \hline
-        
-        Productos                  & Esta tabla es la mas importante ya que desde aqui vamos a poder gestionar todas las demas tablas.
-                                      Es como un "gestor que se conecta con todo lo demas". De igual manera, aqui tenemos el nombre, descripcion, precio y stock de todos los
-                                      productos disponibles al momento.\\ \hline
-
-        Clientes                   & En esta tabla esta toda la informacion personal del cliente como por ejemplo nombre, correo, telefono y direccion.\\ \hline
-    
-
+        Categorias                 & Organiza los productos en 5 categorias diferentes que son atómicas y 
+                                      (teléfonos, laptops, accesorios, tablets y relojes inteligentes) \\
+        \hline
+        Reseñas                    & Registra las opiniones de los productos realizadas por los clientes (las reseñas solo podrán ser realizadas por clientes 
+                                     que hayan adquirido el producto), sin importar la categoría del mismo. Además, contamos con una escala de ranking
+                                     1-5 estrellas (siendo 1 = muy malo y 5 = excelente). \\
+        \hline
+        Pedidos                    & Especifica los atributos únicos del pedido por ejemplo: fecha de pedido y el estado
+                                      del mismo (Enviado, Pendiente y Entregado). \\
+        \hline
+        Detalles del Pedido        & Guarda los datos únicos del pedido. 
+                                      La cantidad de productos (¿cuántos productos se van a enviar?) y el precio unitario del producto. \\
+        \hline
+        Clientes                   & En esta tabla está toda la información personal del cliente: nombre, correo, teléfono y dirección. \\
+        \hline
+        Productos                  & Esta tabla es el núcleo de las tablas, la cual nos permitirá conectarnos a las demás tablas mediante FK (Foreign Keys).
+                                     De igual manera, tenemos los atributos: nombre, descripción, precio y stock de todos los
+                                      productos disponibles al momento. \\
+        \hline
     \end{tabular}
+\end{table}
     \clearpage
 
-    A continuacion tenemos un diagrama ER explicando de mejor manera la tabla
-\end{table}
+    A continuacion tenemos el Diagrama E-R explicando de mejor manera la tabla
+
 \subsection{Diagrama Entidad-Relacion}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{imagenes/DER.png}
+    \includegraphics[width=0.7\textwidth]{DER}
     \caption{DER de la Base de Datos}
+    \label{fig:diagrama_er}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{DER Workbench.png}
+    \caption{DER de la Base de Datos en Workbench}
     \label{fig:diagrama_er}
 \end{figure}
 \clearpage
 \subsection{Esquema en tercera forma normal (3NF), con justificación de normalización.}
  \textbf{Primera Forma Normal (1NF)}: Todas las tablas tienen datos atómicos. Esto significa que no tenemos listas con datos mezclados  
 en una sola celda; cada campo guarda un solo dato. Por ejemplo, en la tabla \textbf{Clientes}, el nombre, correo y teléfono están 
-separados en sus propios campos, en lugar de tener un solo campo saturado de "datos de contacto".
+separados en sus propios campos, en lugar de tener un solo campo saturado de "datos de contacto".\\
 
 \textbf{Segunda Forma Normal (2NF)}: Todos los datos de una tabla dependen por completo de su llave principal(PK).
-    Un excelente ejemplo del diseño es la tabla \textbf{Detalles\_Pedido}: la cantidad de productos comprados 
-    depende exactamente de esa línea de compra en específico (id\_detalle), no solo del pedido ni del producto por sí solos.
+    Un buen ejemplo es la tabla \textbf{Detalles\_Pedido}: la cantidad de productos comprados 
+    depende exactamente de esa línea de compra en específico (id\_detalle), no solo del pedido ni del producto por sí solos.\\
 
 \textbf{Tercera Forma Normal (3NF)}: Ningún dato depende de otro que no sea la llave principal. Tenemos dos ejemplos:
 \begin{itemize}
-    \item En la tabla \textbf{Pedidos}, no pusimos el nombre del cliente dentro de la tabla, porque el nombre depende del cliente (por eso tiene su propia tabla),
-    no del pedido en sí. Solo los unimos con la llave foránea "id\_cliente".
+    \item En la tabla \textbf{Pedidos}, no colocamos el nombre del cliente dentro de la tabla, porque el nombre depende del cliente (por eso tiene su propia tabla),
+    no del pedido en sí. Solo los unimos con la llave foránea "id\_cliente".\\
 \end{itemize}
  
-En la tabla Productos, no fue necesario escribir el nombre o la descripción de la categoría. Solo usamos id\_categoria. Así, si la categoría cambia de nombre,
- se actualiza en su propia tabla y no crea inconsistencias en los productos.
+En la tabla \textbf{Productos}, no fue necesario escribir el nombre o la descripción de la categoría. Solo debemos utilizar id\_categoria. Así, si la categoría cambia de nombre,
+ se actualiza en su propia tabla y no crea errores  en la tabla de  los productos.\\
 
-\subsection{Identificación de Claves}
-A continuación se detallan las claves primarias, foráneas y candidatas de cada entidad dentro del modelo relacional del proyecto:
+\subsection{Identificación de Llaves}
+A continuación tenemos las llaves primarias(PK), foráneas(FK) y candidatas de cada entidad dentro del modelo relacional del proyecto:
 
-\subsubsection*{Claves Primarias (PK)}
-Las claves primarias seleccionadas actúan como identificadores únicos e irrepetibles para cada registro dentro de su respectiva tabla:
+\subsubsection*{Llaves Primarias (PK)}
+Las llaves primarias seleccionadas actúan como identificadores únicos  para cada registro dentro de su propia tabla:
 \begin{itemize}
     \item \textbf{Categorias:} \texttt{id\_categoria}
     \item \textbf{Productos:} \texttt{id\_producto}
@@ -131,7 +143,7 @@ Las claves primarias seleccionadas actúan como identificadores únicos e irrepe
 \end{itemize}
 
 \subsubsection*{Llaves Foráneas (FK)}
-Las llaves foráneas establecen la integridad referencial y las relaciones entre las entidades del sistema:
+Las llaves foráneas tienen una integridad referencial y las relaciones entre las entidades del sistema:
 \begin{itemize}
     \item \textbf{Productos:} \texttt{id\_categoria} (referencia a la tabla \texttt{Categorias})
     \item \textbf{Pedidos:} \texttt{id\_cliente} (referencia a la tabla \texttt{Clientes})
@@ -140,14 +152,14 @@ Las llaves foráneas establecen la integridad referencial y las relaciones entre
 \end{itemize}
 
 \subsubsection*{Llaves Candidatas}
-Las llaves candidatas son aquellos atributos que también poseen la cualidad de unicidad y podrían funcionar como identificadores principales, aunque se haya optado por un ID numérico por eficiencia:
+Las llaves candidatas son aquellos atributos que también poseen la cualidad de unicidad y podrían funcionar como identificadores principales, aunque se haya optado por un ID  por eficiencia:
 \begin{itemize}
     \item \textbf{Clientes:} El atributo \texttt{correo} es una llave candidata fuerte, ya que en el sistema de ventas no deberían existir dos clientes registrados con la misma dirección de correo electrónico.
-    \item \textbf{Categorias:} El atributo \texttt{nombre} funciona como llave candidata, ya que no tendría sentido comercial tener dos categorías llamadas exactamente igual.
+    \item \textbf{Categorias:} El atributo \texttt{nombre} funciona como llave candidata, ya que no tendría sentido tener dos categorías llamadas exactamente igual.
 \end{itemize}
 
 \section{Implementacion de la Base de Datos}
-En esta sección se presenta el script correspondiente a la creación del esquema relacional, la definición de llaves primarias y foráneas,
+En esta sección se presenta el Script correspondiente a la creación del esquema relacional, la definición de llaves primarias y foráneas,
  así como las restricciones de integridad y la creación de índices para optimizar las consultas. Finalmente, se incluye el código utilizado 
  para poblar la base de datos con registros de prueba
 
@@ -177,14 +189,137 @@ INSERT IGNORE INTO Clientes (id_cliente, nombre, correo, telefono, direccion) VA
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{Preuba 1 Poblar la BD.png}
-    \label{fig:prueba 1  poblacion de la BD }
+    \includegraphics[width=0.7\textwidth]{Preuba 1 Poblar la BD}
+    \label{fig:prueba1_poblacion_BD}
 \end{figure}
 \clearpage
 
-% --- SECCIÓN 5 ---
+\begin{lstlisting}[language=SQL, caption= Script Consultas de Lectura]
+    USE proyecto_final_bd;
+
+
+-- 1. CONSULTAS DE LECTURA (JOIN)
+
+-- Consulta A: Productos por categoría ordenados por precio
+SELECT c.nombre AS categoria, p.nombre AS producto, p.precio 
+FROM Productos p
+JOIN Categorias c ON p.id_categoria = c.id_categoria
+ORDER BY c.nombre, p.precio;
+
+-- Consulta B: Clientes con pedidos pendientes
+SELECT c.nombre, COUNT(p.id_pedido) AS total_pendientes
+FROM Clientes c
+JOIN Pedidos p ON c.id_cliente = p.id_cliente
+WHERE p.estado = 'Pendiente'
+GROUP BY c.id_cliente;
+
+-- Consulta C: Top 5 productos mejor calificados
+SELECT p.nombre, AVG(r.calificacion) AS promedio
+FROM Productos p
+JOIN Reseñas r ON p.id_producto = r.id_producto
+GROUP BY p.id_producto
+ORDER BY promedio DESC
+LIMIT 5;
+
+
+
+-- 2. PROCEDIMIENTOS ALMACENADOS 
+
+DROP PROCEDURE IF EXISTS sp_registrar_pedido;
+DROP PROCEDURE IF EXISTS sp_registrar_reseña;
+DROP PROCEDURE IF EXISTS sp_actualizar_stock;
+DROP PROCEDURE IF EXISTS sp_cambiar_estado_pedido;
+DROP PROCEDURE IF EXISTS sp_eliminar_reseñas_producto;
+DROP PROCEDURE IF EXISTS sp_agregar_producto;
+DROP PROCEDURE IF EXISTS sp_actualizar_cliente;
+DROP PROCEDURE IF EXISTS sp_reporte_stock_bajo;
+
+DELIMITER //
+
+-- 1. Registrar pedido (Valida máximo 5 pendientes)
+CREATE PROCEDURE sp_registrar_pedido(IN p_cliente INT)
+BEGIN
+    DECLARE v_pendientes INT;
+    DECLARE v_id INT;
+    SELECT COUNT(*) INTO v_pendientes FROM Pedidos WHERE id_cliente = p_cliente AND estado = 'Pendiente';
+    
+    IF v_pendientes < 5 THEN
+        SELECT IFNULL(MAX(id_pedido), 0) + 1 INTO v_id FROM Pedidos;
+        INSERT INTO Pedidos (id_pedido, id_cliente, fecha_pedido, estado) VALUES (v_id, p_cliente, CURDATE(), 'Pendiente');
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Límite de pedidos pendientes alcanzado';
+    END IF;
+END //
+
+-- 2. Registrar reseña (Valida que el cliente haya comprado el producto)
+CREATE PROCEDURE sp_registrar_reseña(IN p_prod INT, IN p_cli INT, IN p_cal INT, IN p_com VARCHAR(255))
+BEGIN
+    DECLARE v_compra INT;
+    DECLARE v_id INT;
+    SELECT COUNT(*) INTO v_compra FROM Detalles_Pedido d JOIN Pedidos p ON d.id_pedido = p.id_pedido 
+    WHERE p.id_cliente = p_cli AND d.id_producto = p_prod;
+    
+    IF v_compra > 0 THEN
+        SELECT IFNULL(MAX(id_reseña), 0) + 1 INTO v_id FROM Reseñas;
+        INSERT INTO Reseñas (id_reseña, id_producto, id_cliente, calificacion, comentario, fecha) VALUES (v_id, p_prod, p_cli, p_cal, p_com, CURDATE());
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El cliente no ha comprado este producto';
+    END IF;
+END //
+
+-- 3. Actualizar stock
+CREATE PROCEDURE sp_actualizar_stock(IN p_prod INT, IN p_cantidad INT)
+BEGIN
+    UPDATE Productos SET stock = stock - p_cantidad WHERE id_producto = p_prod;
+END //
+
+-- 4. Cambiar estado de pedido
+CREATE PROCEDURE sp_cambiar_estado_pedido(IN p_pedido INT, IN p_nuevo_estado VARCHAR(20))
+BEGIN
+    UPDATE Pedidos SET estado = p_nuevo_estado WHERE id_pedido = p_pedido;
+END //
+
+-- 5. Eliminar reseñas de un producto
+CREATE PROCEDURE sp_eliminar_reseñas_producto(IN p_prod INT)
+BEGIN
+    DELETE FROM Reseñas WHERE id_producto = p_prod;
+END //
+
+-- 6. Agregar producto evitando duplicados
+CREATE PROCEDURE sp_agregar_producto(IN p_cat INT, IN p_nom VARCHAR(100), IN p_desc VARCHAR(255), IN p_precio DECIMAL(10,2), IN p_stock INT)
+BEGIN
+    DECLARE v_existe INT;
+    DECLARE v_id INT;
+    SELECT COUNT(*) INTO v_existe FROM Productos WHERE nombre = p_nom AND id_categoria = p_cat;
+    
+    IF v_existe = 0 THEN
+        SELECT IFNULL(MAX(id_producto), 0) + 1 INTO v_id FROM Productos;
+        INSERT INTO Productos (id_producto, id_categoria, nombre, descripcion, precio, stock) VALUES (v_id, p_cat, p_nom, p_desc, p_precio, p_stock);
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El producto ya existe';
+    END IF;
+END //
+
+-- 7. Actualizar cliente
+CREATE PROCEDURE sp_actualizar_cliente(IN p_id INT, IN p_tel VARCHAR(15), IN p_dir VARCHAR(255))
+BEGIN
+    UPDATE Clientes SET telefono = p_tel, direccion = p_dir WHERE id_cliente = p_id;
+END //
+
+-- 8. Reporte stock bajo
+CREATE PROCEDURE sp_reporte_stock_bajo()
+BEGIN
+    SELECT nombre, stock FROM Productos WHERE stock < 5;
+END //
+
+DELIMITER ;
+
+\end{lstlisting}
+
+
+
 \section{Consultas y Procedimientos Almacenados}
-\begin{lstlisting}[language=SQL, caption=Lógica de Negocio]
+\begin{lstlisting}[language=SQL, caption=Lógica de la Tienda Online]
 -- Consultar clientes con pedidos pendientes
 SELECT c.nombre, COUNT(p.id_pedido) AS total_pendientes
 FROM Clientes c JOIN Pedidos p ON c.id_cliente = p.id_cliente
@@ -208,35 +343,101 @@ BEGIN
 END //
 DELIMITER ;
 \end{lstlisting}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{Consulta1 .png}
-    \caption{Resultado de la consulta 1: Productos por categoría.}
-    \label{fig:Consulta 1}
+    \includegraphics[width=0.7\textwidth]{Consulta1.png}
+    \caption{Resultado de la Consulta 1: Productos por categoría.}
+    \label{fig:Consulta1}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{Consulta 2.png}
-    \caption{Resultado de la consulta 2: Clientes con pedidos pendientes.}
+    \caption{Resultado de la Consulta 2: Clientes con pedidos pendientes.}
     \label{fig:Consulta 2}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{Consulta3.png}
-    \caption{Resultado de la consulta 3: Top 5 productos mejor calificados.}
-    \label{fig:Consulta 3}
+    \caption{Resultado de la Consulta 3: Top 5 productos mejor calificados.}
+    \label{fig:Consulta3}
 \end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Procedimiento1.png}
+    \caption{Resultado del Procedimiento 1:Registrar un nuevo pedido exitoso}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Procedimiento2 ACEPTADO.png}
+    \caption{Resultado del Procedimiento 2:Registrar una reseña exitosa}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Procedimiento2 ERROR.png}
+    \caption{Resultado del Procedimiento 2:Registrar una reseña NO existosa}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Procedimiento3.png}
+    \caption{Resultado del Procedimiento 3:Actualizar el Stock}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Procedimiento4.png}
+    \caption{Resultado del Procedimiento 4:Cambiar el estado de un Producto}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Procedimiento5.png}
+    \caption{Resultado del Procedimiento 5:Eliminar reseñas y ver nuevo promedio de calificaciones }
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Procedimiento6.png}
+    \caption{Resultado del Procedimiento 6: Agregar un nuevo producto(Con fines prácticos este procedimiento va a dar ERROR)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Procedimiento7.png}
+    \caption{Resultado del Procedimiento 7:Actualizar los datos de un cliente}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Procedimiento8.png}
+    \caption{Resultado del Procedimiento 8:Reporte de Stock Bajo }
+\end{figure}
 
 % --- SECCIÓN 6 ---
 \section{Validación y Optimización}
 Para comprobar que la lógica funciona, ejecutamos el procedimiento de reporte de stock mediante el comando \texttt{CALL}, obteniendo los datos esperados.
+\begin{lstlisting}[language=SQL, caption=Script Validacion y Optimizacion]
+    USE proyecto_final_bd;
+
+-- Prueba de procedimiento 1: Reporte de stock bajo (menor a 5)
+CALL sp_reporte_stock_bajo();
+
+-- Prueba de procedimiento 2: Registrar un nuevo pedido exitoso
+CALL sp_registrar_pedido(1);
+
+-- Prueba de Optimización: Uso de Índices (Comprobación)
+EXPLAIN SELECT * FROM Productos WHERE nombre = 'Laptop HP';
+\end{lstlisting}    
 \begin{figure}[H]
     \centering
     % AQUÍ VA LA IMAGEN DEL CALL (La que tiene 1 sola fila con Laptop Asus)
-    \includegraphics[width=0.7\textwidth]{Procedimiento1.png}
+    \includegraphics[width=0.7\textwidth]{Procedimiento1}
     \caption{Ejecución exitosa del procedimiento almacenado (Reporte de stock).}
 \end{figure}
 
@@ -244,7 +445,7 @@ Para validar la optimización, usamos la instrucción \texttt{EXPLAIN}. La base 
 \begin{figure}[H]
     \centering
     % AQUÍ VA LA IMAGEN DEL EXPLAIN (La tabla larga con muchos datos)
-    \includegraphics[width=0.7\textwidth]{OP_VAL3.png}
+    \includegraphics[width=0.7\textwidth]{OP_VAL3}
     \caption{Uso de índices en búsqueda rápida.}
 \end{figure}
 
@@ -263,11 +464,14 @@ Para validar la optimización, usamos la instrucción \texttt{EXPLAIN}. La base 
     \caption{Resolución de problemas técnicos.}
 \end{table}
 
-% --- SECCIÓN 8 ---
-\section{Conclusión}
-Desarrollar este sistema me permitió entender que una base de datos no es solo guardar información, sino conectarla con lógica real. Aprendí a estructurar las tablas usando normalización, a proteger la información con restricciones y a automatizar procesos con procedimientos almacenados, logrando un proyecto totalmente funcional y libre de errores.
 
-% --- SECCIÓN 9 ---
+\section{Conclusión}
+Desarrollar este sistema me permitió entender que una base de datos no es
+ solo guardar información, sino conectarla con lógica real. Aprendí a 
+ estructurar las tablas usando normalización, a proteger la información
+  con restricciones y a automatizar procesos con procedimientos almacenados,
+   logrando un proyecto totalmente funcional con las especificaciones establecidas.
+
 \section{Material de Apoyo Consultado}
 \begin{itemize}
     \item Monroy, G. (2026). \textit{Procedimientos Almacenados, Vistas y Triggers en MySQL}. Material de clase.
@@ -278,7 +482,12 @@ Desarrollar este sistema me permitió entender que una base de datos no es solo 
      https://base-de-datos-online.blogspot.com/2016/01/diseno-y-creacion-de-base-de-datos-con.html
     \item Parzibyte. (2021, 20 enero). MySQL - Inner join con count usando subconsulta. 
     Parzibyte. https://parzibyte.me/blog/posts/mysql-inner-join-count-subconsulta/
-\end{itemize}
+    \item Tipo de letra en LaTeX | Manualdelatex.com. (s. f.). https://manualdelatex.com/tutoriales/tipo-de-letra
+    
+\end{itemize} 
+
+\section{Usuario de GitHub}
+\textbf{bettylp905}
 
 
 
